@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/colorMain"
+android:gravity="center_horizontal"
+    >
+
+
+<ImageView
+    android:layout_width="240dp"
+    android:layout_height="100dp"
+    android:layout_marginTop="150dp"
+    android:src="@drawable/img_title"/>
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:background="@drawable/btn_edge"
+    android:paddingHorizontal="20dp"
+    android:layout_marginBottom="140dp"
+    android:text="댕겨와를 소개합니다. > "
+    android:textSize="13dp"
+    android:textColor="@color/colorBackGround"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="댕겨와 시작하기"
+    android:textColor="#ffffff"
+    android:textStyle="bold"
+    android:textAlignment="center"
+    android:layout_marginVertical="20dp"
+    />
+    <com.shobhitpuri.custombuttons.GoogleSignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/google_sign_up"
+        app:isDarkTheme="false" />
+</LinearLayout>

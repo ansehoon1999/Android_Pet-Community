@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.mobileProgramming.maintermproject">
+
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 카메라 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 저장소 읽기 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 저장소 쓰기 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.sensor.stepCounter" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDF0lGCl1JzyUGvpM6jXNfF_plM5NU8U6o"
+            />
+
+
+        <activity android:name=".mapActivity" />
+        <activity android:name=".Fragment4.ReservationInfo" />
+        <activity android:name=".Fragment2.WaitActivity" />
+        <activity android:name=".ManagerFragment1.ReservationActivity" />
+        <activity android:name=".ManagerFragment5.ManagerFragment5_userInfo" />
+        <activity android:name=".Fragment4.MessageDestPetInfo" />
+        <activity android:name=".Fragment4.MessageDestInfo" />
+        <activity android:name=".Fragment2.ManagerIntroductionActivity" />
+        <activity android:name=".Fragment4.MessageActivity" />
+        <activity android:name=".CustomAdapter" />
+        <activity android:name=".ManagerFragment1.ManagerFragment1_SecondInput" />
+        <activity android:name=".ManagerFragment1.ManagerFragment1_FirstInput" />
+        <activity android:name=".ClientFragment5.ClientFragment5_myInfo" />
+        <activity android:name=".ClientFragment5.ClientFragment5_petInfo" />
+        <activity android:name=".ClientFragment5.ClientFragment5_userInfo" />
+        <activity android:name=".ClientFragment1.ClientFragment1_SecondInput" />
+        <activity android:name=".ClientFragment1.ClientFragment1_FirstInput" />
+        <activity android:name=".Third.Manager" />
+        <activity android:name=".Third.Client" />
+        <activity android:name=".Second.ModeActivity" />
+        <activity android:name=".First.LoginActivity" />
+        <activity android:name=".First.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="org.mobileProgramming.maintermproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

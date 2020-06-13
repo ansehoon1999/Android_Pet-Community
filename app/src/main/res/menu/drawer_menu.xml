@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <item android:title="채팅방 서랍장">
+        <menu>
+            <item android:icon="@drawable/permit_okay"
+                android:id="@+id/nav_yes"
+                android:title="매칭 승낙하기"/>
+            <item android:icon="@drawable/permit_cancel"
+                android:id="@+id/nav_no"
+                android:title="매칭 거절하기"/>
+            <item android:id="@+id/nav_user"
+                android:icon="@drawable/img_user"
+                android:title="상대방 정보 확인하기"/>
+            <item android:id="@+id/nav_pet"
+                android:icon="@drawable/img_pet"
+                android:title="상대 반려 동물 확인하기"/>
+            <item android:id="@+id/nav_res"
+                android:icon="@drawable/alllist"
+                android:title="예약 정보 확인하기"/>
+        </menu>
+    </item>
+
+    <item android:title="사용 가능한 기능">
+       <menu>
+        <item android:id="@+id/nav_ocr"
+            android:icon="@drawable/ocrocr"
+            android:title="OCR 사용하기"/>
+        <item android:id="@+id/nav_gps"
+            android:icon="@drawable/gps"
+            android:title="상대 위치 확인하기"/>
+       </menu>
+    </item>
+
+
+</menu>

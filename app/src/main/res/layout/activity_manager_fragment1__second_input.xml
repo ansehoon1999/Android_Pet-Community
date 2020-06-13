@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackGround"
+    android:orientation="vertical"
+    android:gravity="center_horizontal|center_vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:baselineAligned="false">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img_logo_title" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop ="40dp"
+        android:textAlignment="center"
+        android:text="홍보 내용 입력"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/ManagerFragment1_Petprofile"
+        android:src="@drawable/img_add"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="50dp"/>
+
+    <EditText
+        android:id="@+id/ManagerFragment1_SalesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="집사 타이틀" />
+
+    <EditText
+        android:id="@+id/ManagerFragment1_address2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="주소" />
+
+    <EditText
+        android:id="@+id/ManagerFragment1_hashtag1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="해시태그1" />
+
+    <EditText
+        android:id="@+id/ManagerFragment1_hashtag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="해시태그2" />
+    <EditText
+        android:id="@+id/ManagerFragment1_hashtag3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="해시태그3" />
+    <EditText
+        android:id="@+id/ManagerFragment1_memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="메모사항" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/ManagerFragment1_okay"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorMain"
+            android:text="완료"
+            android:textColor="@color/colorBackGround"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+</LinearLayout>

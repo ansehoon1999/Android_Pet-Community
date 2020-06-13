@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/chatitem_imageview"/>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chatitem_textview_title"
+
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="상대방과의 채팅"
+            android:textColor="@color/colorSmallTitle"
+            android:textSize="20dp" />
+
+        <TextView
+            android:textColor="@color/colorMain"
+
+            android:id="@+id/chatitem_textview_lastMessage"
+            android:text="마지막 메시지"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="1dp"
+            android:background="@color/colorHorizontal"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="1dp"
+        android:background="@color/colorHorizontal"/>
+</LinearLayout>
