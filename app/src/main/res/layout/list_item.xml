@@ -11,7 +11,7 @@
 
         <ImageView
             android:id="@+id/iv_profile"
-            android:layout_width="110dp"
+            android:layout_width="81dp"
             android:layout_height="110dp"
             android:layout_margin="20dp" />
 
@@ -120,6 +120,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="1dp"
-        android:background="@color/colorHorizontal"/>
+        android:layout_marginVertical="1dp" />
 </LinearLayout>

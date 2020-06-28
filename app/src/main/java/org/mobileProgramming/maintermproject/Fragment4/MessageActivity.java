@@ -46,11 +46,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import org.mobileProgramming.maintermproject.MainActivity;
 import org.mobileProgramming.maintermproject.ProgressCircleDialog;
 import org.mobileProgramming.maintermproject.R;
 import org.mobileProgramming.maintermproject.mapActivity;
 import org.mobileProgramming.maintermproject.model.ChatModel;
-import org.mobileProgramming.maintermproject.model.ConstantDefine;
+import org.mobileProgramming.maintermproject.ConstantDefine;
 import org.mobileProgramming.maintermproject.model.User;
 
 import java.io.File;
@@ -121,6 +122,7 @@ public class MessageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch(menuItem.getItemId()) {
                     case R.id.nav_yes:
+
                         reference = FirebaseDatabase.getInstance().getReference().child("ReservationInfo");
                         reference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -187,6 +189,8 @@ public class MessageActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
+
+
                         break;
 
                     case R.id.nav_no :
@@ -235,6 +239,7 @@ public class MessageActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_user:
+
                         final Intent intent1 = new Intent(MessageActivity.this, MessageDestInfo.class);
                         final Bundle userInfoBundle = new Bundle();
                         auth = FirebaseAuth.getInstance();
@@ -306,9 +311,12 @@ public class MessageActivity extends AppCompatActivity {
 
                             }
                         });
+
+
                         break;
 
                     case R.id.nav_res:
+
                         FirebaseDatabase.getInstance().getReference().child("ReservationInfo").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -339,15 +347,9 @@ public class MessageActivity extends AppCompatActivity {
                         });
 
 
+
                         break;
                     case R.id.nav_ocr:
-                                if(CameraOnOffFlag) {
-                                    try {
-                                        dispatchTakePictureIntent ();
-                                    } catch (IOException e) {
-                                        e.printStackTrace ();
-                                    }
-                                }
 
                         m_objProgressCircle = new ProgressCircleDialog(MessageActivity.this);//로딩 프로그래스
                         m_messageHandler = new MessageHandler();
@@ -358,16 +360,32 @@ public class MessageActivity extends AppCompatActivity {
                             Tesseract();
                         }
 
+                        if(CameraOnOffFlag) {
+                                    try {
+                                        dispatchTakePictureIntent ();
+                                    } catch (IOException e) {
+                                        e.printStackTrace ();
+                                    }
+                                }
+
+
                         break;
                     case R.id.nav_gps:
+
                         Intent intent = new Intent(MessageActivity.this, mapActivity.class);
                         intent.putExtra("destinationUid", destinationUid);
                         startActivity(intent);
+                        break;
+                    case R.id.walking:
+                        Intent intent3 = new Intent(MessageActivity.this, MainActivity.class);
+                        intent3.putExtra("destinationUid", destinationUid);
+                        startActivity(intent3);
                         break;
                 }
                 return true;
             }
         });
+
 
              DestinationUid = destinationUid;
             ReservationJob();
@@ -401,6 +419,8 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
             checkChatRoom();
+
+
     }
 
     @Override
@@ -613,7 +633,6 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
-
     public class MessageHandler extends Handler {
 
         @Override
@@ -760,6 +779,7 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 });
             }
+
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -804,4 +824,6 @@ public class MessageActivity extends AppCompatActivity {
             }
 
     }
+
 }
+

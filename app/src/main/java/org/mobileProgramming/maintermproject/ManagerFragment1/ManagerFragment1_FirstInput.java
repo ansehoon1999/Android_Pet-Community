@@ -74,7 +74,7 @@ public class ManagerFragment1_FirstInput extends AppCompatActivity {
                     user.age = age.getText().toString();
                     user.job = job.getText().toString();
                     user.uid = myUid;
-                    user.permit = "false";
+                    user.permit = "true";
                     FirebaseDatabase.getInstance().getReference().child("managerInfo")
                             .child(myUid).setValue(user);
                     finish();

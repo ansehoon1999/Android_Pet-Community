@@ -1,4 +1,4 @@
-package org.mobileProgramming.maintermproject.model;
+package org.mobileProgramming.maintermproject;
 
 public class ConstantDefine {
 

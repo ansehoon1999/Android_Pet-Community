@@ -9,8 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-feature android:name="android.hardware.sensor.stepCounter" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDF0lGCl1JzyUGvpM6jXNfF_plM5NU8U6o"
-            />
-
-
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".mapActivity" />
         <activity android:name=".Fragment4.ReservationInfo" />
         <activity android:name=".Fragment2.WaitActivity" />
@@ -62,6 +55,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDF0lGCl1JzyUGvpM6jXNfF_plM5NU8U6o" />
     </application>
 
 </manifest>

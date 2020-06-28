@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout android:layout_gravity="center"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="130sp">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@color/colorMain"
+        android:text="댕댕이"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:text="는 산책 중"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_height="140sp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/colorHighlight"
+        android:text="0"
+        android:layout_marginTop="50dp" android:id="@+id/tvStepCount"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="20sp" android:textColor="@color/colorSmallTitle" android:text=" 걸음 산책했어요" android:layout_marginTop="50sp"/>
+
+</LinearLayout>
+
+
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="wrap_content">
+
+    <Button android:layout_height="60sp" android:layout_width="match_parent" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/colorBackGround" android:text="산책 종료" android:id="@+id/stopBtn" android:background="@color/colorMain" android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
+
+</LinearLayout>
