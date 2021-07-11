@@ -2,8 +2,6 @@
 
 <img src="https://img.shields.io/badge/platform-android-brightgreen">
 
-> 배우고 추려서 하나의 포트폴리오로 기록하자
-
 > 가천대학교 소프트웨어학과 3학년 1학기 모바일 프로그래밍 팀프로젝트
 
 > 강아지 관리 품앗이 어플 🐶
