@@ -27,10 +27,31 @@
 - 반려 동물 알러지 방지 OCR 기능
 - 산책 및 상대 위치 GPS 기능
 
+![슬라이드10](https://user-images.githubusercontent.com/63048392/125196875-7c1a4400-e296-11eb-856a-c768cd765dda.PNG)
+![슬라이드12](https://user-images.githubusercontent.com/63048392/125196876-7fadcb00-e296-11eb-8ba9-601eb86469f5.PNG)
+![슬라이드14](https://user-images.githubusercontent.com/63048392/125196888-83d9e880-e296-11eb-9826-cce519c679e5.PNG)
+![슬라이드15](https://user-images.githubusercontent.com/63048392/125196891-85a3ac00-e296-11eb-86a7-437a37c7f59d.PNG)
+![슬라이드16](https://user-images.githubusercontent.com/63048392/125196895-876d6f80-e296-11eb-8ac2-3b2bc3c334fb.PNG)
+![슬라이드17](https://user-images.githubusercontent.com/63048392/125196898-889e9c80-e296-11eb-8957-1163e2faef0a.PNG)
+![슬라이드18](https://user-images.githubusercontent.com/63048392/125196901-89cfc980-e296-11eb-98f6-391549ceb9eb.PNG)
+![슬라이드19](https://user-images.githubusercontent.com/63048392/125196902-8b998d00-e296-11eb-9171-8b4be8c3137c.PNG)
+![슬라이드20](https://user-images.githubusercontent.com/63048392/125196905-8dfbe700-e296-11eb-9307-4e4155a019bc.PNG)
+
+
+
 ## 버전 및 사용 오픈 소스
 
-- Firebase
+- Android midSdkVersion: 19
+- Android targetVersion: 29
+- Firebase: 17.0.0
+- glide: 1.1.0
+- custombutton:google-signin: 1.1.0
+- ocr(tess-two): 9.0.0
 
-
-## 시연영상
+## 시연영상 링크
 https://www.youtube.com/watch?v=-7l02o8ondU
+
+## 팀원 및 역할
+|이름|안세훈|윤혜주|이유정|최인선|
+|------|---|---|---|---|
+|역할|백엔드, 구조, 일부 디자인|OCR 매니저|GPS 매니저|디자이너|
