@@ -1,0 +1,158 @@
+{
+  "project_info": {
+    "project_number": "974436066233",
+    "project_id": "my-application2-4b876",
+    "storage_bucket": "my-application2-4b876.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974436066233:android:2564172fbe266583658c68",
+        "android_client_info": {
+          "package_name": "com.example.myapplication2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974436066233-rbeahv4o0joi0m4n6eav1kepdnhkntvq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication2",
+            "certificate_hash": "9db151c50587638d6c077ec78577b49941abb646"
+          }
+        },
+        {
+          "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATnZwNx6EVoDiRlIW8CfT_Yc8msYl9sa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974436066233:android:4faff94ff74d6dd0658c68",
+        "android_client_info": {
+          "package_name": "com.example.pushfcm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974436066233-n0vepa2u1oqd20ujg19nbd0nus48peo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pushfcm",
+            "certificate_hash": "9db151c50587638d6c077ec78577b49941abb646"
+          }
+        },
+        {
+          "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATnZwNx6EVoDiRlIW8CfT_Yc8msYl9sa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974436066233:android:9eaa3607fbd577ab658c68",
+        "android_client_info": {
+          "package_name": "com.sehun.android_pet_community"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974436066233-t2ctt1luec12pn4crl281fnd4s7mqjcb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sehun.android_pet_community",
+            "certificate_hash": "9db151c50587638d6c077ec78577b49941abb646"
+          }
+        },
+        {
+          "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATnZwNx6EVoDiRlIW8CfT_Yc8msYl9sa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974436066233:android:683155cd11ae27fc658c68",
+        "android_client_info": {
+          "package_name": "com.sehun.pushfcmexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974436066233-pu6cmlrd3atm04ohmn33agvlofm2rbgf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sehun.pushfcmexample",
+            "certificate_hash": "9db151c50587638d6c077ec78577b49941abb646"
+          }
+        },
+        {
+          "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATnZwNx6EVoDiRlIW8CfT_Yc8msYl9sa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974436066233-vq419da0dm30gdp9aj0ml40cd8b4mg5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
