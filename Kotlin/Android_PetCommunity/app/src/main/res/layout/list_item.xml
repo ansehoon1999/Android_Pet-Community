@@ -27,11 +27,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/colorSmallTitle"
                     android:id="@+id/list_SalesTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="수제 간식 만드는 집   "
+                    android:textColor="@color/colorSmallTitle"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
