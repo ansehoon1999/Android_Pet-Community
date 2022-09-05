@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Client.ClientInput2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Client.ClientInput1Activity"
+            android:exported="true" />
+        <activity
             android:name=".Manager.Manager"
             android:exported="true" />
         <activity
