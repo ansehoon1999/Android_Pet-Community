@@ -1,5 +1,6 @@
 package com.sehun.android_pet_community.Client
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,6 +67,11 @@ class ClientFragment2 : Fragment() {
             viewHolder.list_hash1.text = managerSaleDTO[position].hashtag1
             viewHolder.list_hash2.text = managerSaleDTO[position].hashtag2
             viewHolder.list_hash3.text = managerSaleDTO[position].hashtag3
+            viewHolder.button3.setOnClickListener {
+                val intent : Intent? = Intent(activity!!, ClientManagerIntroduction::class.java)
+                intent?.putExtra("destinationUid", managerSaleDTO[position].uid)
+                startActivity(intent)
+            }
 
         }
 

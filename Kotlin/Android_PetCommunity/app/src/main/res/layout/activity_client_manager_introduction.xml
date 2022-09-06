@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackGround">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="25dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="40dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="집사 정보" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorCategory"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="집사에 대한 자세한 정보를 알 수 있어요."/>
+
+
+        <ImageView
+            android:id="@+id/Manager_introduction_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="타이틀"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/Manager_introduction_Title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="입력한 타이틀"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주소"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/Manager_introduction_Address"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="입력한 주소"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="메모사항"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/Manager_introduction_memo"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="5dp"
+            android:text="입력한 메모"/>
+
+        <Spinner
+            android:id="@+id/Manager_introduction_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="40dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="예약 가능 날짜" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorCategory"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="집사가 반려동물을 맡아줄 수 있는 날짜예요."/>
+
+        <com.applikeysolutions.cosmocalendar.view.CalendarView
+            android:id="@+id/introductionCalendarVview"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="40dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="예약 잡기" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorCategory"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="집사가 마음에 드시면 대화를 시작하세요."/>
+
+        <Button
+            android:id="@+id/Manager_introduction_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="40dp"
+            android:background="@color/colorMain"
+            android:text="채팅 시작하기"
+            android:textColor="@color/colorBackGround"
+            android:textSize="20dp" />
+
+
+    </LinearLayout>
+</ScrollView>
