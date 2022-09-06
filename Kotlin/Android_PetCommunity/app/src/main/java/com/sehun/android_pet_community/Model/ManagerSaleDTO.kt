@@ -9,4 +9,6 @@ data class ManagerSaleDTO
     var hashtag3: String? = null,
     var memo: String? = null,
     var uid : String? = null,
-            )
+    var uri : String? = null,
+
+    )

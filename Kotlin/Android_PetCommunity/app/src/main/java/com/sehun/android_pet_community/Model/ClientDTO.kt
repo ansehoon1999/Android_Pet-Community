@@ -5,6 +5,7 @@ data class ClientDTO(
     var userName : String? = null,
     var age : String? = null,
     var job : String? = null,
+    var uri : String? = null,
     var uid : String? = null,
 
 )

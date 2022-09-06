@@ -6,5 +6,6 @@ data class ManagerDTO(
     var age : String? = null,
     var job : String? = null,
     var uid : String? = null,
+    var uri : String? = null,
 
 )

@@ -6,5 +6,6 @@ data class ClientPetDTO(
     var petType : String? = null,
     var allergy : String? = null,
     var uid : String? = null,
+    var uri : String? = null,
 
 )
