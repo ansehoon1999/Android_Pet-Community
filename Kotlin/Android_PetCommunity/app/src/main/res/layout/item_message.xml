@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_linearlayout_main"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
+        android:id="@+id/messageItem_linearlayout_destination"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_message"
+            android:textColor="#fff"
+            android:padding="10dp"
+            android:elevation="2dp"
+            android:textSize="18dp"
+            android:layout_alignParentRight="true"
+
+
+            android:text="메시지"
+            android:id="@+id/messageItem_textView_message"
+            />
+    </LinearLayout>
+</LinearLayout>

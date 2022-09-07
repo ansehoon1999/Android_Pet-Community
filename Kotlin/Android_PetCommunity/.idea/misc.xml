@@ -29,12 +29,20 @@
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/activity_client_manager_introduction.xml" value="0.2375" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/activity_manager_input1.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/activity_manager_input2.xml" value="0.1" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/activity_message.xml" value="0.2390625" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/activity_wait.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_client1.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_client3.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_client4.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_manager1.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_manager2.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_manager3.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/fragment_manager4.xml" value="0.1" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/item_chat.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/item_message.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/list_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/layout/nav_header.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/PC/Documents/GitHub/Android_Pet-Community/Kotlin/Android_PetCommunity/app/src/main/res/menu/drawer_menu.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>
