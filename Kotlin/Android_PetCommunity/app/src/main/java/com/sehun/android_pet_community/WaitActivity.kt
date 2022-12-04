@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sehun.android_pet_community.Model.ChatModel
 import com.sehun.android_pet_community.Model.ReservationModel
 import com.sehun.android_pet_community.databinding.ActivityWaitBinding
 
@@ -47,6 +48,14 @@ class WaitActivity : AppCompatActivity() {
 
             FirebaseFirestore.getInstance().collection("ReservationInfo").document(myUid + destinationUid)
                 .set(reservationModel)
+
+//            val chatModel = ChatModel()
+//            chatModel.users!!.put(myUid, true)
+//            chatModel.users!!.put(destinationUid!!, true)
+//
+//
+////            FirebaseFirestore.getInstance().collection("chatrooms").add(chatModel)
+//            FirebaseFirestore.getInstance().collection("chatrooms").document("sss").set(chatModel)
 
             startActivity(messageIntent)
         }

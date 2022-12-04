@@ -7,61 +7,87 @@ import android.util.Log
 import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sehun.android_pet_community.Model.ChatModel
-import kotlinx.android.synthetic.main.activity_message.*
+import com.sehun.android_pet_community.databinding.ActivityMessageBinding
 
 class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private  var mbinding : ActivityMessageBinding? = null
+    private val binding get() = mbinding!!
+
     var firebaseFirestore: FirebaseFirestore? = null
+    var DDestinationUid: String? = null
     var destinationUid: String? = null
     var auth: FirebaseAuth? = null
-    var uid: String? = null
+    var myUid: String? = null
     var chatRoomUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_message)
+        mbinding = ActivityMessageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        checkChatRoom()
         destinationUid = intent.getStringExtra("destinationUid")
         firebaseFirestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
-        uid = auth?.currentUser?.uid
+        myUid = auth?.currentUser?.uid
 
-        nav_view.setCheckedItem(R.id.nav_user)
-        nav_view.setNavigationItemSelectedListener(this)
-        messageActivity_button.setOnClickListener {
-            val chatModel: ChatModel? = ChatModel()
-            chatModel?.user?.put(uid!!, true)
-            chatModel?.user?.put(destinationUid!!, true)
-            if (chatRoomUid == null) {
-                messageActivity_button.setEnabled(false)
-                firebaseFirestore?.collection("chatrooms")?.document()?.set(chatModel!!)
-                    ?.addOnSuccessListener {
-                        checkChatRoom()
-                        Log.d("thisss", "DocumentSnapshot successfully written!")
-                    }
-                    ?.addOnFailureListener { e -> Log.w("thisss", "Error writing document", e) }
-            } else {
-                var comment: ChatModel.Comment? = ChatModel.Comment()
-                comment!!.uid = uid
-                comment!!.message = messageActivity_editText.text.toString()
+        binding.navView.setCheckedItem(R.id.nav_user)
+        binding.navView.setNavigationItemSelectedListener(this)
+        binding.messageActivityButton.setOnClickListener {
+            val chatModel = ChatModel()
+            chatModel.users!!.put(myUid!!, true)
+            chatModel.users!!.put(destinationUid!!, true)
 
-                firebaseFirestore?.collection("chatrooms")?.document(chatRoomUid!!)
-                    ?.collection("comments")?.document()?.set(comment)
-                    ?.addOnSuccessListener {
-                        messageActivity_editText.setText("")
-                    }
-            }
+            FirebaseFirestore.getInstance().collection("chatrooms").add(chatModel)
+
+
+        }
+
+
+//            if (chatRoomUid == null) {
+//                binding.messageActivityButton.setEnabled(false)
+//                firebaseFirestore?.collection("chatrooms")?.document(uid!!)
+//                    ?.collection(uid!!)!!.document(uid!! + destinationUid).set(chatModel!!)
+//                    ?.addOnSuccessListener {
+//                        checkChatRoom()
+//                        Log.d("thisss", "DocumentSnapshot successfully written!")
+//                    }
+//                    ?.addOnFailureListener { e -> Log.w("thisss", "Error writing document", e) }
+//            } else {
+//                var comment: ChatModel.Comment? = ChatModel.Comment()
+//                comment!!.uid = uid
+//                comment!!.message = binding.messageActivityEditText.text.toString()
+//
+//                firebaseFirestore?.collection("chatrooms")?.document(chatRoomUid!!)
+//                    ?.collection("comments")?.document()?.set(comment)
+//                    ?.addOnSuccessListener {
+//                        binding.messageActivityEditText.setText("")
+//                    }
+
 
             checkChatRoom()
 
         }
 
 
-    }
+
 
     private fun checkChatRoom() {
-        firebaseFirestore?.collection("chatrooms")?.document()
+        FirebaseFirestore.getInstance()?.collection("chatrooms")
+            .get()!!.addOnSuccessListener { snapshots ->
+                for (snapshot in snapshots) {
+                    val data = snapshot.toObject(ChatModel::class.java)
+                    if (data.users!!.containsKey(myUid) && data.users!!.containsKey(destinationUid)) {
+                        chatRoomUid = snapshots.metadata.toString()
+
+                        Log.d("experiment", chatRoomUid.toString())
+
+                    }
+                }
+            }
     }
 
 

@@ -15,12 +15,12 @@
         android:title="List" />
 
     <item
-        android:id="@+id/navigation_four"
+        android:id="@+id/navigation_three"
         android:icon="@drawable/bell"
         android:enabled="true"
         android:title="CHAT" />
     <item
-        android:id="@+id/navigation_five"
+        android:id="@+id/navigation_four"
         android:icon="@drawable/chat"
         android:enabled="true"
         android:title="MyPage" />

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/navigation_one"
         android:icon="@drawable/home"
         android:enabled="true"
+
         android:title="Home" />
 
     <item
@@ -13,12 +15,12 @@
         android:title="List" />
 
     <item
-        android:id="@+id/navigation_four"
+        android:id="@+id/navigation_three"
         android:icon="@drawable/bell"
         android:enabled="true"
-        android:title="Chat" />
+        android:title="CHAT" />
     <item
-        android:id="@+id/navigation_five"
+        android:id="@+id/navigation_four"
         android:icon="@drawable/chat"
         android:enabled="true"
         android:title="MyPage" />

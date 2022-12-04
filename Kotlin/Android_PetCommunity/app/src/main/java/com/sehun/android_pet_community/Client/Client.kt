@@ -33,8 +33,8 @@ class Client : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelecte
                 return true
             }
             R.id.navigation_three -> {
-                var clientFragment3 : ClientFragment3? = ClientFragment3()
-                supportFragmentManager.beginTransaction().replace(R.id.frameLayout, clientFragment3!!).commit()
+                var clientFragment333 : ClientFragment3? = ClientFragment3()
+                supportFragmentManager.beginTransaction().replace(R.id.frameLayout, clientFragment333!!).commit()
                 return true
             }
 

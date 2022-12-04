@@ -1,11 +1,14 @@
 package com.sehun.android_pet_community.Model
 
 data class ChatModel (
-    var user :MutableMap<String, Boolean>? = null,
-    var comments : MutableMap<String, Comment>? = null, ) {
+    var usersList : List<String> = listOf(),
+    var users :MutableMap<String, Boolean>? = mutableMapOf(),
+    var comments : MutableMap<String, String>? = mutableMapOf(), )
+
+{
     data class Comment(
-        var uid : String? = null,
-        var message : String? = null,
+        var uid : String = "",
+        var message : String = "",
     )
 }
 

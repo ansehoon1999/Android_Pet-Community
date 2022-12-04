@@ -74,7 +74,7 @@ class ClientManagerIntroductionActivity : AppCompatActivity() {
 
             val  intent : Intent = Intent(this, WaitActivity::class.java)
             intent.putExtra("destinationUid", destinationUid)
-            intent.putExtra("ReservationTime", destinationUid)
+            intent.putExtra("ReservationTime", selected)
             intent.putExtra("address", address)
             intent.putExtra("salestitle", title)
             startActivity(intent)

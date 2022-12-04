@@ -1,60 +1,137 @@
 package com.sehun.android_pet_community.Client
 
+import android.app.ActivityOptions
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.sehun.android_pet_community.MessageActivity
+import com.sehun.android_pet_community.Model.ChatModel
 import com.sehun.android_pet_community.R
+import kotlinx.android.synthetic.main.fragment_client3.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ClientFragment3.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ClientFragment3 : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client3, container, false)
+        var view = inflater.inflate(R.layout.fragment_client3, container, false)
+
+        view.chatfragment_recyclerview.adapter = ChatRecyclerViewAdapter(requireActivity())
+        view.chatfragment_recyclerview.layoutManager = LinearLayoutManager(inflater.getContext())
+
+        return view
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ClientFragment3.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ClientFragment3().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    class ChatRecyclerViewAdapter(context: Context) :
+        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        var firebaseStorage: FirebaseStorage? = null
+        var storageReference: StorageReference? = null
+        val chatModels: MutableList<ChatModel> = mutableListOf()
+        var uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+        val destinationUsers = ArrayList<String?>()
+        val context = context
+
+        init {
+
+            FirebaseFirestore.getInstance().collection("chatrooms").document(uid!!)
+                .collection(uid).get()
+                .addOnSuccessListener { querySnapshot ->
+                    for (snapshot in querySnapshot!!) {
+                        val data: ChatModel? = snapshot.toObject(ChatModel::class.java)
+                        chatModels.add(data!!)
+                    }
+                    notifyDataSetChanged()
+                }
+        }
+
+        class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            var imageView: ImageView
+            var textView_title: TextView
+            var textView_last_message: TextView
+
+            init {
+                imageView = view.findViewById<View>(R.id.chatitem_imageview) as ImageView
+                textView_title = view.findViewById<View>(R.id.chatitem_textview_title) as TextView
+                textView_last_message =
+                    view.findViewById<View>(R.id.chatitem_textview_lastMessage) as TextView
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false)
+            return CustomViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val customViewHolder: CustomViewHolder = holder as CustomViewHolder
+            var destinationUid: String? = null
+            //일일 챗방에 있는 유저를 채크한다
+            for (user in chatModels[position].users!!.keys) {
+                if (user != uid) {
+                    destinationUid = user
+                    destinationUsers.add(destinationUid)
                 }
             }
+
+            Toast.makeText(context, chatModels.toString(), Toast.LENGTH_SHORT).show()
+
+            firebaseStorage = FirebaseStorage.getInstance()
+            storageReference = firebaseStorage!!.getReference()
+            val imageRef: StorageReference =
+                storageReference!!.child("ManagerImages").child("$destinationUid.png")
+            imageRef.downloadUrl.addOnSuccessListener { uri -> //에러나는 부분
+                Glide.with(context)
+                    .load(uri)
+                    .apply(RequestOptions().circleCrop())
+                    .into(customViewHolder.imageView)
+            }
+            //메시지를 내림차순으로 정렬 후 마지막 메세지의 키값을 가져옴
+//            val commentMap: MutableMap<String, ChatModel.Comment> =
+//                TreeMap<String, ChatModel.Comment>(
+//                    Collections.reverseOrder<String>()
+//                )
+//            commentMap.putAll(chatModels[position].comments!!)
+//            customViewHolder.textView_last_message.setText(
+//                chatModels[position].comments!!.get(
+//                    commentMap.keys.toTypedArray()[0]
+//                )!!.message
+//            )
+            customViewHolder.itemView.setOnClickListener {
+                val intent = Intent(context, MessageActivity::class.java)
+                //클릭하면 넘어가는 부분
+                intent.putExtra("destinationUid", destinationUsers[position])
+            }
+
+
+        }
+
+        override fun getItemCount(): Int {
+            return chatModels.size
+        }
+
     }
 }
