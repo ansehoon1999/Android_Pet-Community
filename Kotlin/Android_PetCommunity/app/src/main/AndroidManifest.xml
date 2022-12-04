@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ReservationActivity"
+            android:exported="true" />
+        <activity
             android:name=".MapActivity"
             android:exported="true" />
         <activity
@@ -23,7 +26,7 @@
             android:name=".WaitActivity"
             android:exported="true" />
         <activity
-            android:name=".Client.ClientManagerIntroduction"
+            android:name=".Client.ClientManagerIntroductionActivity"
             android:exported="true" />
         <activity
             android:name=".Manager.ManagerInput2Activity"

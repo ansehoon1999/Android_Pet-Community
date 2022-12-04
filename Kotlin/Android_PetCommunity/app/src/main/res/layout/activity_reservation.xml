@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackGround">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:baselineAligned="false">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img_logo_title" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop ="10dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginBottom="10dp"
+        android:text="돌봄 가능 날짜" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="25dp"
+        android:textColor="@color/colorCategory"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:text="반려동물을 맡아 줄 수 있는 여유가 되는 날짜를 선택하세요."/>
+
+
+
+    <com.applikeysolutions.cosmocalendar.view.CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_height="500dp" />
+
+    <LinearLayout
+        android:layout_marginHorizontal="25dp"
+        android:id="@+id/ll_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        android:layout_alignParentBottom="true">
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:id="@+id/rg_selection_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checkedButton="@+id/rb_single">
+
+
+            <RadioButton
+                android:id="@+id/rb_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="하루"/>
+            <RadioButton
+                android:id="@+id/rb_multiple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="다중 선택"/>
+            <RadioButton
+                android:id="@+id/rb_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기간"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/ManagerFragment1_ReservationOkayBtn"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorMain"
+            android:textColor="@color/colorBackGround"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="홍보하기"/>
+    </RelativeLayout>
+</LinearLayout>

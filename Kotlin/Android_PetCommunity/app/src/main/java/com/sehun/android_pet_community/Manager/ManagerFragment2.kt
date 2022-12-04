@@ -1,5 +1,6 @@
 package com.sehun.android_pet_community.Manager
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,20 +11,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sehun.android_pet_community.Model.ManagerSaleDTO
 import com.sehun.android_pet_community.R
-import kotlinx.android.synthetic.main.fragment_manager2.view.*
+import com.sehun.android_pet_community.ReservationActivity
+import com.sehun.android_pet_community.databinding.ActivityClientManagerIntroductionBinding
+import com.sehun.android_pet_community.databinding.FragmentManager2Binding
 import kotlinx.android.synthetic.main.list_item.view.*
 
 
 class ManagerFragment2 : Fragment() {
+    private  var mbinding : FragmentManager2Binding? = null
+    private val binding get() = mbinding!!
+
     var firestore : FirebaseFirestore? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_manager2, container, false)
+        mbinding = FragmentManager2Binding.inflate(inflater, container, false)
+
         firestore = FirebaseFirestore.getInstance()
 
-        view.manager_recyclerView.adapter = RecyclerViewAdapter()
-        view.manager_recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.managerRecyclerView.adapter = RecyclerViewAdapter()
+        binding.managerRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.fab.setOnClickListener {
+            val intent = Intent(requireActivity(), ReservationActivity::class.java)
+            startActivity(intent)
+        }
+        return binding.root
+    }
 
-        return view
+    override fun onDestroyView() {
+        // onDestroyView 에서 binding class 인스턴스 참조를 정리해주어야 한다.
+        mbinding = null
+        super.onDestroyView()
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -63,6 +79,8 @@ class ManagerFragment2 : Fragment() {
 
 
     }
+
+
 
 
 

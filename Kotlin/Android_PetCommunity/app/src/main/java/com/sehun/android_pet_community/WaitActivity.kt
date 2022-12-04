@@ -3,38 +3,59 @@ package com.sehun.android_pet_community
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_client_manager_introduction.*
-import kotlinx.android.synthetic.main.activity_client_manager_introduction.Manager_introduction_Title
-import kotlinx.android.synthetic.main.activity_wait.*
+import com.sehun.android_pet_community.Model.ReservationModel
+import com.sehun.android_pet_community.databinding.ActivityWaitBinding
+
 
 class WaitActivity : AppCompatActivity() {
+    private  var mbinding : ActivityWaitBinding? = null
+    private val binding get() = mbinding!!
+    private val myUid = FirebaseAuth.getInstance().currentUser!!.uid
+
     var firebaseFirestore : FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wait)
+        mbinding = ActivityWaitBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        val destinationUid: String? = intent.getStringExtra("destinationUid")
+        val destinationUid = intent.getStringExtra("destinationUid")
+        val ReservationTime = intent.getStringExtra("ReservationTime")
+        val address = intent.getStringExtra("address")
+        val salestitle = intent.getStringExtra("salestitle")
 
-        val docRef = firebaseFirestore?.collection("manager_sale_info")?.document(destinationUid!!)
-        docRef?.get()?.addOnSuccessListener { document ->
-            wait_Salestitle.text = document["salestitle"].toString()
-            wait_address.text = document["address"].toString()
-            wait_ReservationTime.text = document["memo"].toString()
+        binding.waitReservationTime.text = ReservationTime
+        binding.waitAddress.text = address
+        binding.waitSalestitle.text = salestitle
 
+        val messageIntent = Intent(this, MessageActivity::class.java)
+        messageIntent.putExtra("destinationUid", destinationUid)
+        messageIntent.putExtra("Title", salestitle)
+        messageIntent.putExtra("ReservationTime", destinationUid)
+        messageIntent.putExtra("address", address)
+        binding.waitOkay.setOnClickListener {
+            val reservationModel : ReservationModel = ReservationModel()
+            reservationModel.myUiddestinationUid = myUid + destinationUid
+            reservationModel.destinationUidmyUid = destinationUid + myUid
+            reservationModel.Salestitle = salestitle
+            reservationModel.address = address
+            reservationModel.date = ReservationTime
+            reservationModel.client = myUid
+            reservationModel.manager = destinationUid
+
+            FirebaseFirestore.getInstance().collection("ReservationInfo").document(myUid + destinationUid)
+                .set(reservationModel)
+
+            startActivity(messageIntent)
         }
-
-        waitOkay.setOnClickListener {
-            val intent : Intent? = Intent(this, MessageActivity::class.java)
-            intent?.putExtra("destinationUid", destinationUid)
-            startActivity(intent)
-        }
-
     }
 
-
+    override fun onDestroy() {
+        // onDestroy 에서 binding class 인스턴스 참조를 정리해주어야 한다.
+        mbinding = null
+        super.onDestroy()
+    }
 
 }

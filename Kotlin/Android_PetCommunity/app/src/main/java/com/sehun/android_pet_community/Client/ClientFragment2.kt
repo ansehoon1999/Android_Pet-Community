@@ -68,7 +68,7 @@ class ClientFragment2 : Fragment() {
             viewHolder.list_hash2.text = managerSaleDTO[position].hashtag2
             viewHolder.list_hash3.text = managerSaleDTO[position].hashtag3
             viewHolder.button3.setOnClickListener {
-                val intent : Intent? = Intent(activity!!, ClientManagerIntroduction::class.java)
+                val intent : Intent? = Intent(activity!!, ClientManagerIntroductionActivity::class.java)
                 intent?.putExtra("destinationUid", managerSaleDTO[position].uid)
                 startActivity(intent)
             }
