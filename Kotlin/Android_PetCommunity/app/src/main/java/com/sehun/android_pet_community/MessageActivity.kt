@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.sehun.android_pet_community.Model.ChatModel
+import com.sehun.android_pet_community.Model.ClientPetDTO
 import com.sehun.android_pet_community.Model.ReservationModel
 import com.sehun.android_pet_community.databinding.ActivityMessageBinding
 import org.intellij.lang.annotations.Language
@@ -47,14 +48,14 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     var myUid: String? = null
     var chatRoomUid: String? = null
     private var mContext: Context? = null
-//    private var m_Tess: TessBaseAPI? = null
-//    private var mDataPath = ""
-//    private val mLanguageList = arrayOf("eng", "kor") // 언어
-//    private var mCurrentPhotoPath: String? = null
-//    private var m_objProgressCircle: ProgressCircleDialog? = null
-//    private var m_messageHandler: MessageHandler? = null
-
-
+    private var m_Tess: TessBaseAPI? = null
+    private var mDataPath = ""
+    private val mLanguageList = arrayOf("eng", "kor") // 언어
+    private var mCurrentPhotoPath: String? = null
+    private var m_objProgressCircle: ProgressCircleDialog? = null
+    private var m_messageHandler: MessageHandler? = null
+    private val CameraOnOffFlag = true
+    private var ProgressFlag = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMessageBinding.inflate(layoutInflater)
@@ -67,12 +68,9 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         myUid = auth?.currentUser?.uid
 
 
-        Log.d("experiment", "???")
         binding.navView.setCheckedItem(R.id.nav_user)
         binding.navView.setNavigationItemSelectedListener(this)
         binding.messageActivityButton.setOnClickListener {
-
-
             val map = hashMapOf(
                 myUid!! to binding.messageActivityEditText.text.toString()
             )
@@ -96,15 +94,31 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             .get().addOnSuccessListener { snapshots ->
                 for (snapshot in snapshots) {
                     val data = snapshot.toObject(ChatModel::class.java)
-                    if ((data.users.contains(hashMapOf(myUid!! to true)) || (data.users.contains(hashMapOf(myUid!! to false))))
-                        && (data.users.contains(hashMapOf(destinationUid!! to true)) || (data.users.contains(hashMapOf(destinationUid!! to false)))))
+//                    if ((data.users.contains(hashMapOf(myUid!! to true)) || (data.users.contains(hashMapOf(myUid!! to false))))
+//                        && (data.users.contains(hashMapOf(destinationUid!! to true)) || (data.users.contains(hashMapOf(destinationUid!! to false)))))
+                    if (data.usersList.contains(myUid!!) && data.usersList.contains(destinationUid!!))
                         {
                             chatRoomUid = snapshot.id
                             binding.messageActivityButton.isEnabled = true
                             binding.messageActivityRecyclerview.layoutManager = LinearLayoutManager(this)
                             Log.d(TAG, chatRoomUid.toString())
                             binding.messageActivityRecyclerview.adapter = RecyclerViewAdapter(chatRoomUid)
-                    }
+
+                            var state = true
+                            data.users.forEach {
+                                if (it.values.contains(false)) {
+                                    Log.d("experiment", it.values.toString())
+                                    state = false
+                                }
+                            }
+                            if (state) {
+                                binding.messageActivityMatching.text = "Matching Now"
+                             } else {
+                                binding.messageActivityMatching.text = "No Matching"
+
+                            }
+
+                        }
                 }
             }
     }
@@ -199,24 +213,24 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
 
             R.id.nav_ocr -> {
-//                m_objProgressCircle = ProgressCircleDialog(this@MessageActivity) //로딩 프로그래스
-//
-//                m_messageHandler = MessageHandler()
-//
-//                if (CameraOnOffFlag) // "사진찍기" 버튼이 눌리면 true
-//                {
-//                    PermissionCheck()
-//                    Tesseract()
-//                }
-//
-//                if (CameraOnOffFlag) {
-//                    try {
-//                        dispatchTakePictureIntent()
-//                    } catch (e: IOException) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//
+                m_objProgressCircle = ProgressCircleDialog(this@MessageActivity) //로딩 프로그래스
+
+                m_messageHandler = MessageHandler()
+
+                if (CameraOnOffFlag) // "사진찍기" 버튼이 눌리면 true
+                {
+                    PermissionCheck()
+                    Tesseract()
+                }
+
+                if (CameraOnOffFlag) {
+                    try {
+                        dispatchTakePictureIntent()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+
                 return true
             }
 
@@ -225,206 +239,245 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return false
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        when (requestCode) {
-//            ConstantDefine.PERMISSION_CODE -> Toast.makeText(
-//                this,
-//                "권한이 허용되었습니다",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            ConstantDefine.ACT_TAKE_PIC -> if (resultCode == RESULT_OK) {
-//                try {
-//                    val file = File(mCurrentPhotoPath)
-//                    var rotatedBitmap: Bitmap? = null
-//                    val bitmap = MediaStore.Images.Media.getBitmap(
-//                        contentResolver,
-//                        FileProvider.getUriForFile(
-//                            this@MessageActivity,
-//                            applicationContext.packageName + ".fileprovider", file
-//                        )
-//                    )
-//                    if (bitmap != null) {
-//                        val ei = ExifInterface(mCurrentPhotoPath!!)
-//                        val orientation = ei.getAttributeInt(
-//                            ExifInterface.TAG_ORIENTATION,
-//                            ExifInterface.ORIENTATION_UNDEFINED
-//                        )
-//                        when (orientation) {
-//                            ExifInterface.ORIENTATION_ROTATE_90 -> rotatedBitmap =
-//                                rotateImage(bitmap, 90f)
-//                            ExifInterface.ORIENTATION_ROTATE_180 -> rotatedBitmap =
-//                                rotateImage(bitmap, 180f)
-//                            ExifInterface.ORIENTATION_ROTATE_270 -> rotatedBitmap =
-//                                rotateImage(bitmap, 270f)
-//                            ExifInterface.ORIENTATION_NORMAL -> rotatedBitmap = bitmap
-//                            else -> rotatedBitmap = bitmap
-//                        }
-//                        val ocrThread = OCRThread(rotatedBitmap!!)
-//                        ocrThread.isDaemon = true
-//                        ocrThread.start()
-//                        Toast.makeText(
-//                            mContext,
-//                            resources.getString(R.string.LoadingMessage),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                } catch (e: Exception) {
-//                }
-//            }
-//            ConstantDefine.Allargy -> {}
-//        }
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            ConstantDefine.PERMISSION_CODE -> Toast.makeText(
+                this,
+                "권한이 허용되었습니다",
+                Toast.LENGTH_SHORT
+            ).show()
+            ConstantDefine.ACT_TAKE_PIC -> if (resultCode == RESULT_OK) {
+                try {
+                    val file = File(mCurrentPhotoPath)
+                    var rotatedBitmap: Bitmap? = null
+                    val bitmap = MediaStore.Images.Media.getBitmap(
+                        contentResolver,
+                        FileProvider.getUriForFile(
+                            this@MessageActivity,
+                            applicationContext.packageName + ".fileprovider", file
+                        )
+                    )
+                    if (bitmap != null) {
+                        val ei = ExifInterface(mCurrentPhotoPath!!)
+                        val orientation = ei.getAttributeInt(
+                            ExifInterface.TAG_ORIENTATION,
+                            ExifInterface.ORIENTATION_UNDEFINED
+                        )
+                        when (orientation) {
+                            ExifInterface.ORIENTATION_ROTATE_90 -> rotatedBitmap =
+                                rotateImage(bitmap, 90f)
+                            ExifInterface.ORIENTATION_ROTATE_180 -> rotatedBitmap =
+                                rotateImage(bitmap, 180f)
+                            ExifInterface.ORIENTATION_ROTATE_270 -> rotatedBitmap =
+                                rotateImage(bitmap, 270f)
+                            ExifInterface.ORIENTATION_NORMAL -> rotatedBitmap = bitmap
+                            else -> rotatedBitmap = bitmap
+                        }
+                        val ocrThread = OCRThread(rotatedBitmap!!)
+                        ocrThread.isDaemon = true
+                        ocrThread.start()
+                        Toast.makeText(
+                            mContext,
+                            resources.getString(R.string.LoadingMessage),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: Exception) {
+                }
+            }
+            ConstantDefine.Allargy -> {}
+        }
+    }
 
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String?>,
-//        grantResult: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResult)
-//        if (requestCode == 0) {
-//        } else {
-//        }
-//    }
-//
-//    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-//        val matrix = Matrix()
-//        matrix.postRotate(angle)
-//        return Bitmap.createBitmap(
-//            source, 0, 0, source.width, source.height,
-//            matrix, true
-//        )
-//    }
-//    fun PermissionCheck() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED && checkSelfPermission(
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                ) == PackageManager.PERMISSION_DENIED && checkSelfPermission(
-//                    Manifest.permission.READ_EXTERNAL_STORAGE
-//                ) == PackageManager.PERMISSION_DENIED
-//            ) {
-//                // 권한 없음
-//                ActivityCompat.requestPermissions(
-//                    this@MessageActivity, arrayOf(
-//                        Manifest.permission.CAMERA,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                    ),
-//                    ConstantDefine.PERMISSION_CODE
-//                )
-//            } else {
-//                // 권한 있음
-//            }
-//        }
-//    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResult: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResult)
+        if (requestCode == 0) {
+        } else {
+        }
+    }
 
-//    fun Tesseract() {
-//        mDataPath = filesDir.toString() + "/tesseract/"
-//
-//        var lang = ""
-//        for (Lanague in mLanguageList) {
-//            checkFile(File(mDataPath + "tessdata/"), Lanague)
-//            lang += Lanague + "+"
-//        }
-//        m_Tess = TessBaseAPI()
-//        m_Tess!!.init(mDataPath, lang)
-//    }
-//
-//    @Throws(IOException::class)
-//    private fun createImageFile(): File? {
-//        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//        val imageFileName = "JPEG_" + timeStamp + "_"
-//        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//        val image = File.createTempFile(
-//            imageFileName,
-//            ".jpg",
-//            storageDir
-//        )
-//        mCurrentPhotoPath = image.absolutePath
-//        return image
-//    }
-//    private fun checkFile (dir : File, Language : String) {
-//        if (!dir.exists() && dir.mkdir()) {
-//            copyFiles(Language)
-//        }
-//
-//        if (dir.exists()) {
-//            val datafilepath = mDataPath + "tessdata/" + Language + ".traineddata"
-//            val datafile = File(datafilepath)
-//            if(!datafile.exists()) {
-//                copyFiles(Language)
-//            }
-//        }
-//    }
-//
-//    @Throws(IOException::class)
-//    private fun dispatchTakePictureIntent() {
-//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        if (takePictureIntent.resolveActivity(packageManager) != null) {
-//            var photoFile: File? = null
-//            try {
-//                photoFile = createImageFile()
-//            } catch (ex: IOException) {
-//            }
-//            if (photoFile != null) {
-//                val photoUri = FileProvider.getUriForFile(
-//                    this,
-//                    this.applicationContext.packageName + ".fileprovider",
-//                    photoFile
-//                )
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-//                startActivityForResult(takePictureIntent, ACT_TAKE_PIC)
-//            }
-//        }
-//    }
-//
-//    private fun copyFiles(Language: String) {
-//        try {
-//            var filepath = mDataPath + "/tessdata/" + Language + ".traineddata"
-//            val assetManager = assets
-//            val instream = assetManager.open("tessdata/$Language.traineddata")
-//            val outstream: OutputStream = FileOutputStream(filepath)
-//            val buffer = ByteArray(1024)
-//            var read: Int
-//            while (instream.read(buffer).also { read = it } != -1) {
-//                outstream.write(buffer, 0, read)
-//            }
-//            outstream.flush()
-//            outstream.close()
-//            instream.close()
-//
-//        } catch (e : FileNotFoundException) {
-//            e.printStackTrace()
-//        } catch (e : IOException) {
-//            e.printStackTrace()
-//        }
-//    }
-//
-//    inner class OCRThread (val rotatedImage: Bitmap) : Thread() {
-//        override fun run() {
-//            super.run()
-//            var OCRresult: String? = null
-//            m_Tess!!.setImage(rotatedImage)
-//            OCRresult = m_Tess!!.getUTF8Text()
-//            val message = Message.obtain()
-//            message.what = RESULT_OCR
-//            message.obj = OCRresult
-//            m_messageHandler!!.sendMessage(message)
-//        }
-//
-//        init {
-//            if (!ProgressFlag) {
-//                m_objProgressCircle = ProgressCircleDialog.show(mContext, "", "", true)
-//            }
-//            ProgressFlag = true
-//        }
-//    }
-//    companion object ConstantDefine {
-//        const val ACT_TAKE_PIC = 1
-//        const val PERMISSION_CODE = ACT_TAKE_PIC + 1
-//        const val RESULT_OCR = PERMISSION_CODE + 1
-//        const val Allargy = RESULT_OCR + 1
-//    }
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
+    fun PermissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED && checkSelfPermission(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED && checkSelfPermission(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                // 권한 없음
+                ActivityCompat.requestPermissions(
+                    this@MessageActivity, arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
+                    ConstantDefine.PERMISSION_CODE
+                )
+            } else {
+                // 권한 있음
+            }
+        }
+    }
+
+    fun Tesseract() {
+
+        mDataPath = filesDir.toString() + "/tesseract/"
+
+        var lang = ""
+        for (Language in mLanguageList) {
+            checkFile(File(mDataPath + "tessdata/"), Language)
+            lang += Language + "+"
+        }
+        m_Tess = TessBaseAPI()
+        m_Tess!!.init(mDataPath, lang)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File? {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageFileName = "JPEG_" + timeStamp + "_"
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val image = File.createTempFile(
+            imageFileName,
+            ".jpg",
+            storageDir
+        )
+        mCurrentPhotoPath = image.absolutePath
+        return image
+    }
+    private fun checkFile (dir : File, Language : String) {
+
+        Log.d("experiment", dir.toString())
+        Log.d("experiment", dir.exists().toString())
+        Log.d("experiment", dir.mkdirs().toString())
+
+        if (!dir.exists() && dir.mkdirs()) {
+            Log.d("experiment", "no exist1")
+            copyFiles(Language)
+        }
+
+        if (dir.exists()) {
+            Log.d("experiment", "exist")
+            val datafilepath = mDataPath + "tessdata/" + Language + ".traineddata"
+            val datafile = File(datafilepath)
+
+            if(!datafile.exists()) {
+                Log.d("experiment", "no exist2")
+                copyFiles(Language)
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (ex: IOException) {
+            }
+            if (photoFile != null) {
+                val photoUri = FileProvider.getUriForFile(
+                    this,
+                    this.applicationContext.packageName + ".fileprovider",
+                    photoFile
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                startActivityForResult(takePictureIntent, ACT_TAKE_PIC)
+            }
+        }
+    }
+
+    private fun copyFiles(Language: String) {
+        try {
+            Log.d(TAG, "copy!!")
+
+            var filepath = mDataPath + "/tessdata/" + Language + ".traineddata"
+            val assetManager = assets
+            val instream = assetManager.open("tessdata/${Language}.traineddata")
+            Log.d("experiment", "tessdata/${Language}.traineddata")
+            Log.d("experiment", "tessdata/$Language.traineddata")
+
+            val outstream: OutputStream = FileOutputStream(filepath)
+            val buffer = ByteArray(1024)
+            var read: Int
+            while (instream.read(buffer).also { read = it } != -1) {
+                outstream.write(buffer, 0, read)
+            }
+            outstream.flush()
+            outstream.close()
+            instream.close()
+
+        } catch (e : FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e : IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    inner class OCRThread (val rotatedImage: Bitmap) : Thread() {
+        override fun run() {
+            super.run()
+            var OCRresult: String? = null
+            m_Tess!!.setImage(rotatedImage)
+            OCRresult = m_Tess!!.getUTF8Text()
+            val message = Message.obtain()
+            message.what = RESULT_OCR
+            message.obj = OCRresult
+            m_messageHandler!!.sendMessage(message)
+        }
+
+        init {
+            if (!ProgressFlag) {
+                m_objProgressCircle = ProgressCircleDialog.show(mContext, "", "", true)
+            }
+            ProgressFlag = true
+        }
+    }
+
+    inner class MessageHandler : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                RESULT_OCR -> {
+                    val tt = msg.obj.toString()
+                    if (m_objProgressCircle!!.isShowing() && m_objProgressCircle != null) m_objProgressCircle!!.dismiss()
+                    ProgressFlag = false
+                    Toast.makeText(mContext, "문자인식이 완료되었습니다", Toast.LENGTH_SHORT).show()
+                    FirebaseFirestore.getInstance().collection("user_pet_info").document(destinationUid!!).get()
+                        .addOnSuccessListener {
+                            val allergy = it.toObject(ClientPetDTO::class.java)!!.allergy
+                            if (tt.contains(allergy!!)) {
+                                Toast.makeText(mContext, "급여 금지 성분이 포함되어 있습니다 ${allergy}", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(mContext, "급여 가능", Toast.LENGTH_SHORT).show()
+
+                            }
+                        }
+                }
+            }
+        }
+    }
+    companion object ConstantDefine {
+        const val ACT_TAKE_PIC = 1
+        const val PERMISSION_CODE = ACT_TAKE_PIC + 1
+        const val RESULT_OCR = PERMISSION_CODE + 1
+        const val Allargy = RESULT_OCR + 1
+    }
 
 }
 
