@@ -47,12 +47,12 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     var myUid: String? = null
     var chatRoomUid: String? = null
     private var mContext: Context? = null
-    private var m_Tess: TessBaseAPI? = null
-    private var mDataPath = ""
-    private val mLanguageList = arrayOf("eng", "kor") // 언어
-    private var mCurrentPhotoPath: String? = null
-    private var m_objProgressCircle: ProgressCircleDialog? = null
-    private var m_messageHandler: MessageHandler? = null
+//    private var m_Tess: TessBaseAPI? = null
+//    private var mDataPath = ""
+//    private val mLanguageList = arrayOf("eng", "kor") // 언어
+//    private var mCurrentPhotoPath: String? = null
+//    private var m_objProgressCircle: ProgressCircleDialog? = null
+//    private var m_messageHandler: MessageHandler? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -419,17 +419,12 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 //            ProgressFlag = true
 //        }
 //    }
-
-
-
-
-
-    companion object ConstantDefine {
-        const val ACT_TAKE_PIC = 1
-        const val PERMISSION_CODE = ACT_TAKE_PIC + 1
-        const val RESULT_OCR = PERMISSION_CODE + 1
-        const val Allargy = RESULT_OCR + 1
-    }
+//    companion object ConstantDefine {
+//        const val ACT_TAKE_PIC = 1
+//        const val PERMISSION_CODE = ACT_TAKE_PIC + 1
+//        const val RESULT_OCR = PERMISSION_CODE + 1
+//        const val Allargy = RESULT_OCR + 1
+//    }
 
 }
 
