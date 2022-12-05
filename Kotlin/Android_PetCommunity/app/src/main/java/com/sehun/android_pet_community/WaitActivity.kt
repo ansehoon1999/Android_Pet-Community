@@ -49,14 +49,6 @@ class WaitActivity : AppCompatActivity() {
             FirebaseFirestore.getInstance().collection("ReservationInfo").document(myUid + destinationUid)
                 .set(reservationModel)
 
-//            val chatModel = ChatModel()
-//            chatModel.users!!.put(myUid, true)
-//            chatModel.users!!.put(destinationUid!!, true)
-//
-//
-////            FirebaseFirestore.getInstance().collection("chatrooms").add(chatModel)
-//            FirebaseFirestore.getInstance().collection("chatrooms").document("sss").set(chatModel)
-
             startActivity(messageIntent)
         }
     }
