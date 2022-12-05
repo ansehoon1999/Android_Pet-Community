@@ -49,7 +49,32 @@ class WaitActivity : AppCompatActivity() {
             FirebaseFirestore.getInstance().collection("ReservationInfo").document(myUid + destinationUid)
                 .set(reservationModel)
 
-            startActivity(messageIntent)
+            val chatModel = ChatModel()
+
+            val list1 : MutableList<Map<String, Boolean>> = mutableListOf()
+            list1.add(hashMapOf(
+                    myUid to true
+            ))
+
+            list1.add(hashMapOf(
+                destinationUid!! to false
+            ))
+
+            val list3 : MutableList<String> = mutableListOf()
+            list3.add(myUid)
+            list3.add(destinationUid)
+
+            chatModel.users = list1.toList()
+            chatModel.usersList = list3.toList()
+
+//            FirebaseFirestore.getInstance().collection("chatrooms").add(chatModel)
+            FirebaseFirestore.getInstance().collection("chatrooms").document("sss").set(chatModel)
+                .addOnSuccessListener {
+                    startActivity(messageIntent)
+                    finish()
+                }
+
+
         }
     }
 

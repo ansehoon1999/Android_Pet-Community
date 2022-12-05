@@ -4,13 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sehun.android_pet_community.Model.ChatModel
+import com.sehun.android_pet_community.Model.ReservationModel
 import com.sehun.android_pet_community.databinding.ActivityMessageBinding
 import java.util.ArrayList
 
@@ -25,6 +30,7 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     var myUid: String? = null
     var chatRoomUid: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMessageBinding.inflate(layoutInflater)
@@ -35,74 +41,27 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         auth = FirebaseAuth.getInstance()
         myUid = auth?.currentUser?.uid
 
-        checkChatRoom()
 
+        Log.d("experiment", "???")
         binding.navView.setCheckedItem(R.id.nav_user)
         binding.navView.setNavigationItemSelectedListener(this)
         binding.messageActivityButton.setOnClickListener {
-            Log.d(TAG, chatRoomUid.toString())
-
-            if (chatRoomUid == null) {
-                val chatModel = ChatModel()
-                chatModel.users!!.put(myUid!!, true)
-                chatModel.users!!.put(destinationUid!!, true)
-
-                val list1 : MutableList<String> = mutableListOf()
-                list1.add(myUid!!)
-                list1.add(destinationUid!!)
-                chatModel.usersList = list1.toList()
-
-                val list2 : MutableList<Map<String, String>> = mutableListOf()
-                list2.add(hashMapOf(
-                    myUid!! to binding.messageActivityEditText.text.toString()
-                ))
-                chatModel.comments = list2.toList()
-
-                binding.messageActivityButton.isEnabled = true
-                FirebaseFirestore.getInstance().collection("chatrooms").add(chatModel)
-                    .addOnSuccessListener {
-                        binding.messageActivityEditText.text.clear()
-                        checkChatRoom()
-                    }
-            } else {
-                val map = hashMapOf(
-                    myUid!! to binding.messageActivityEditText.text.toString()
-                )
-
-                FirebaseFirestore.getInstance().collection("chatrooms").document(chatRoomUid!!)
-                    .update("comments", FieldValue.arrayUnion(map))
-                    .addOnSuccessListener {
-                        binding.messageActivityEditText.text.clear()
-                    }
-            }
 
 
+            val map = hashMapOf(
+                myUid!! to binding.messageActivityEditText.text.toString()
+            )
+
+            FirebaseFirestore.getInstance().collection("chatrooms").document(chatRoomUid!!)
+                .update("comments", FieldValue.arrayUnion(map))
+                .addOnSuccessListener {
+                    binding.messageActivityEditText.text.clear()
+                    checkChatRoom()
+                }
         }
 
-
-//            if (chatRoomUid == null) {
-//                binding.messageActivityButton.setEnabled(false)
-//                firebaseFirestore?.collection("chatrooms")?.document(uid!!)
-//                    ?.collection(uid!!)!!.document(uid!! + destinationUid).set(chatModel!!)
-//                    ?.addOnSuccessListener {
-//                        checkChatRoom()
-//                        Log.d("thisss", "DocumentSnapshot successfully written!")
-//                    }
-//                    ?.addOnFailureListener { e -> Log.w("thisss", "Error writing document", e) }
-//            } else {
-//                var comment: ChatModel.Comment? = ChatModel.Comment()
-//                comment!!.uid = uid
-//                comment!!.message = binding.messageActivityEditText.text.toString()
-//
-//                firebaseFirestore?.collection("chatrooms")?.document(chatRoomUid!!)
-//                    ?.collection("comments")?.document()?.set(comment)
-//                    ?.addOnSuccessListener {
-//                        binding.messageActivityEditText.setText("")
-//                    }
-
-
-
-        }
+        checkChatRoom()
+    }
 
 
 
@@ -112,38 +71,101 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             .get().addOnSuccessListener { snapshots ->
                 for (snapshot in snapshots) {
                     val data = snapshot.toObject(ChatModel::class.java)
-                    if (data.users!!.containsKey(myUid) && data.users!!.containsKey(destinationUid)) {
-                        chatRoomUid = snapshot.id
-                        binding.messageActivityButton.isEnabled = true
-                        binding.messageActivityRecyclerview.layoutManager = LinearLayoutManager(this)
-//                        binding.messageActivityRecyclerview.adapter = RecyclerViewAdapter()
+                    if ((data.users.contains(hashMapOf(myUid!! to true)) || (data.users.contains(hashMapOf(myUid!! to false))))
+                        && (data.users.contains(hashMapOf(destinationUid!! to true)) || (data.users.contains(hashMapOf(destinationUid!! to false)))))
+                        {
+                            chatRoomUid = snapshot.id
+                            binding.messageActivityButton.isEnabled = true
+                            binding.messageActivityRecyclerview.layoutManager = LinearLayoutManager(this)
+                            Log.d(TAG, chatRoomUid.toString())
+                            binding.messageActivityRecyclerview.adapter = RecyclerViewAdapter(chatRoomUid)
                     }
                 }
             }
     }
 
-//    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-//    {
-//
-//        var comments: List<ChatModel.Comment?>? = null
-//        var userModel: User? = null
-//        fun RecyclerViewAdapter() {
-//            comments = ArrayList()
-//            FirebaseDatabase.getInstance().getReference().child("users").child(destinationUid)
-//                .addListenerForSingleValueEvent(object : ValueEventListener() {
-//                    fun onDataChange(dataSnapshot: DataSnapshot) {
-//                        userModel = dataSnapshot.getValue(User::class.java)
-//                        getMessageList()
-//                    }
-//
-//                    fun onCancelled(databaseError: DatabaseError) {}
-//                })
-//        }
-//    }
+    inner class RecyclerViewAdapter(chatRoomUid : String?): RecyclerView.Adapter<RecyclerView.ViewHolder>()
+    {
+        var comments : List<Map<String, String>> = listOf()
+
+        init {
+            if (chatRoomUid != null) {
+                FirebaseFirestore.getInstance().collection("chatrooms").document(chatRoomUid)
+                    .get().addOnSuccessListener { document ->
+                        comments = document.toObject(ChatModel::class.java)!!.comments
+
+                        notifyDataSetChanged()
+                    }
+            }
+        }
+
+        inner class MessageViewHolder(view: View) :
+            RecyclerView.ViewHolder(view) {
+            var textView_message: TextView
+            var linearLayout_destination: LinearLayout
+            var linearLayout_main: LinearLayout
+
+            init {
+                textView_message =
+                    view.findViewById<View>(R.id.messageItem_textView_message) as TextView
+                linearLayout_destination =
+                    view.findViewById<View>(R.id.messageItem_linearlayout_destination) as LinearLayout
+                linearLayout_main =
+                    view.findViewById<View>(R.id.message_linearlayout_main) as LinearLayout
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
+            return MessageViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val messageViewHolder: MessageViewHolder = holder as MessageViewHolder
+            //내가 보낸 메시지
+            if (comments[position].containsKey(myUid)) { //내 uid {
+                messageViewHolder.textView_message.setText(comments[position].getValue(myUid!!))
+                messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE)
+                messageViewHolder.textView_message.setTextSize(10f)
+                messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT)
+            } else {
+                messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE)
+                messageViewHolder.textView_message.setText(comments[position].getValue(destinationUid!!))
+                messageViewHolder.textView_message.setTextSize(10f)
+                messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT)
 
 
-        override fun onNavigationItemSelected(item : MenuItem) : Boolean {
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return comments.size
+        }
+
+
+
+    }
+
+
+    override fun onNavigationItemSelected(item : MenuItem) : Boolean {
         when(item.itemId) {
+            R.id.nav_yes -> {
+                FirebaseFirestore.getInstance().collection("chatrooms").document(chatRoomUid!!)
+                    .update("users", FieldValue.arrayRemove(hashMapOf(myUid!! to false)))
+                FirebaseFirestore.getInstance().collection("chatrooms").document(chatRoomUid!!)
+                    .update("users", FieldValue.arrayUnion(hashMapOf(myUid!! to true)))
+
+                binding.messageActivityMatching.text = "Matching Now"
+                binding.messageActivityEditText.isEnabled =true
+                binding.messageActivityButton.isEnabled = true
+            }
+            R.id.nav_no -> {
+                binding.messageActivityMatching.text = "Matching Decline"
+                binding.messageActivityEditText.isEnabled =false
+                binding.messageActivityButton.isEnabled = false
+            }
+
             R.id.nav_gps -> {
                 val intent: Intent = Intent(this, MapActivity::class.java)
                 intent.putExtra("destinationUid", destinationUid)

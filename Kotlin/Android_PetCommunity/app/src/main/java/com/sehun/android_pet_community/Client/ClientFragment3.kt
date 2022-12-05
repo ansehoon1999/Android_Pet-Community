@@ -90,12 +90,12 @@ class ClientFragment3 : Fragment() {
             val customViewHolder: CustomViewHolder = holder as CustomViewHolder
             var destinationUid: String? = null
             //일일 챗방에 있는 유저를 채크한다
-            for (user in chatModels[position].users!!.keys) {
-                if (user != uid) {
-                    destinationUid = user
-                    destinationUsers.add(destinationUid)
-                }
-            }
+//            for (user in chatModels[position].users!!.keys) {
+//                if (user != uid) {
+//                    destinationUid = user
+//                    destinationUsers.add(destinationUid)
+//                }
+//            }
 
             Toast.makeText(context, chatModels.toString(), Toast.LENGTH_SHORT).show()
 
