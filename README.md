@@ -37,14 +37,21 @@
 
 
 
-## 버전 및 사용 오픈 소스
+## 버전 및 사용 스택
+- Android (Java, Kotlin)
+- Android targetVersion: 29, 31
+- Realtime Firebase: 19.3.0
+- play-services-map: 17.0.0
+- Firestorage: 19.1.1
+- Firestore: 18.0.0
+- Glide: 4.11.0
+- OCR(tess-two): 9.0.0
+- Espresso: 3.2.0
+- Junit: 1.1.1
 
-- Android midSdkVersion: 19
-- Android targetVersion: 29
-- Firebase: 17.0.0
-- glide: 1.1.0
-- custombutton:google-signin: 1.1.0
-- ocr(tess-two): 9.0.0
+## 이외 오픈 소스
+- 'com.shobhitpuri.custombuttons:google-signin:1.1.0'
+- 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 
 ## 시연영상 링크
 https://www.youtube.com/watch?v=-7l02o8ondU
