@@ -48,11 +48,3 @@ https://www.youtube.com/watch?v=-7l02o8ondU
 |산책 기능|정보 입력|메인 화면|
 |------|------|------|
 |<img src="https://user-images.githubusercontent.com/63048392/205850154-4b307db0-37e7-47ba-b578-01e2e6d3dfc5.png" width="250" height="400">>|<img src="https://user-images.githubusercontent.com/63048392/205850160-375c6583-d814-406a-a47a-806a345c7921.png" width="250" height="400">|<img src="https://user-images.githubusercontent.com/63048392/205850166-4ccb07ed-72da-4ecf-b1c1-0e8071c9c9e6.png" width="250" height="400">|
-
-
-
-## 팀원 및 역할
-|이름|안세훈|윤혜주|이유정|최인선|
-|------|---|---|---|---|
-|역할|예약 매칭 및 채팅 시스템, OCR, 일부 디자인|OCR|GPS|디자인|
-
