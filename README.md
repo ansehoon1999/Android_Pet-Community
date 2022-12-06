@@ -6,9 +6,6 @@
 
 > 반려 동물 관리 품앗이 어플 🐶
 
-![슬라이드4](https://user-images.githubusercontent.com/63048392/125196410-d2868300-e294-11eb-8606-005b4aab9da3.PNG)
-![슬라이드5](https://user-images.githubusercontent.com/63048392/125196422-d7e3cd80-e294-11eb-9f43-107002266662.PNG)
-
 ## Explanation
 
 많은 사람들이 키우고 있지만 바쁜 현대인들에게 계속해서 반려견을 보살피는 일은 쉬운 일은 아닙니다. 따라서 주변 이웃과 서로 반려 동물을 맡길 수 있는 안드로이드 플랫폼을 만들었습니다.
