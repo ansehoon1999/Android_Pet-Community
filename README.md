@@ -1,4 +1,4 @@
-# 🐶 댕겨와 🐶
+# 🐶 댕겨와 🐶 - 강아지 관리 품앗이 어플
 
 <img src="https://img.shields.io/badge/platform-android-brightgreen">
 
